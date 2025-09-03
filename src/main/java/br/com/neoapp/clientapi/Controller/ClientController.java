@@ -1,4 +1,4 @@
-package br.com.neoapp.clientapi.Controller;
+package br.com.neoapp.clientapi.controller;
 
 import br.com.neoapp.clientapi.dtos.ClientRequestDTO;
 import br.com.neoapp.clientapi.dtos.ClientResponseDTO;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
-@RequestMapping("/clients")
+@RequestMapping
 
 public class ClientController {
 
@@ -33,7 +33,7 @@ public class ClientController {
         return ResponseEntity.created(uri).body(newClient);
     }
 
-    @GetMapping
+    @GetMapping("/buscar")
     public ResponseEntity<Page<ClientResponseDTO>> findByName(
             @RequestParam String name,
             @PageableDefault(size = 10, sort = "name") Pageable pageable) {
