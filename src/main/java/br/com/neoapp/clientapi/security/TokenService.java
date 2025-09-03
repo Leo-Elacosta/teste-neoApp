@@ -1,11 +1,11 @@
 package br.com.neoapp.clientapi.security;
 
-import br.com.neoapp.clientapi.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -26,7 +26,7 @@ public class TokenService {
      * @param usuario O usuário para o qual o token será gerado.
      * @return Uma string representando o token JWT.
      */
-    public String createToken(User usuario) {
+    public String createToken(UserDetails userDetails) {
        
         SecretKey key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         Instant agora = Instant.now();
@@ -34,7 +34,7 @@ public class TokenService {
 
         return Jwts.builder()
                 .setIssuer("client-api") 
-                .setSubject(usuario.getUsername()) 
+                .setSubject(userDetails.getUsername()) 
                 .setIssuedAt(Date.from(agora)) 
                 .setExpiration(Date.from(expiracao)) 
                 .signWith(key, SignatureAlgorithm.HS256) 
