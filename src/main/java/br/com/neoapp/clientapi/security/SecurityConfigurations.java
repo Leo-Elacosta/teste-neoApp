@@ -11,12 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -51,16 +47,5 @@ public class SecurityConfigurations {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    // NOVO BEAN PARA TESTE: CRIA UM USUÁRIO EM MEMÓRIA
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.builder()
-            .username("user")
-            .password(passwordEncoder().encode("123456")) // Criptografa a senha na hora
-            .roles("USER")
-            .build();
-        return new InMemoryUserDetailsManager(user);
     }
 }

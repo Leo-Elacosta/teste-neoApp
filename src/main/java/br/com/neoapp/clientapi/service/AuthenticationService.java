@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * A anotação @Service a torna um Bean gerenciado pelo Spring, permitindo
  * que o Spring Security a encontre e utilize automaticamente.
  */
-//@Service
+@Service
 public class AuthenticationService implements UserDetailsService {
 
     // Injetamos o repositório de usuários para poder consultar o banco de dados.
